@@ -9,9 +9,12 @@ router.get("/", (req, res, next) => {
 router.post("/signup", async (req, res, next) => {
   try {
     await createUser(req.body);
-    return res.code(201).send({ message: "success" });
+    return res.status(201).send({ message: "success" });
   } catch (e) {
-    return res.send({ message: e });
+    console.log("error", e);
+    return res.send({
+      message: "error: ",
+    });
   }
 });
 
