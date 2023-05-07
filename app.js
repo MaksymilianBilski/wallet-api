@@ -6,6 +6,7 @@ const logger = require("morgan");
 
 const transactionsRouter = require("./routes/transactionsRoute");
 const usersRouter = require("./routes/userRoute");
+const authRouter = require("./routes/authRoute");
 
 const app = express();
 
@@ -17,8 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/transaction", transactionsRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/transactions", transactionsRouter);
+app.use("/api/transactions-categories", transactionsRouter);
+app.use("/api/transaction-summary", transactionsRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
