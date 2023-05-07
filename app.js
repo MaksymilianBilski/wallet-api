@@ -17,8 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/transaction", transactionsRouter);
-app.use("/users", usersRouter);
+app.use("/api/transaction", transactionsRouter);
+app.use("/api/users", usersRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));

@@ -12,6 +12,6 @@ const transactionSchema = new schema({
   balanceAfter: { type: Number },
 });
 
-const transaction = mongoose.model("transactions", transactionSchema);
+const Transactions = mongoose.model("transactions", transactionSchema);
 
-module.exports = transaction;
+module.exports = Transactions;

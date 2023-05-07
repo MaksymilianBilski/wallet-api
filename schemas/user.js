@@ -11,8 +11,9 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required!"],
   },
+  balance: { type: Number },
 });
 
-const user = mongoose.model("users", userSchema);
+const Users = mongoose.model("users", userSchema);
 
-module.exports = user;
+module.exports = Users;
