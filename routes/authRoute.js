@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { createUser, findUser } = require("../controllers/userControllers");
 const auth = require("../auth/auth");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const secret = process.env.SECRET;
 
 router.post("/sign-up", async (req, res, next) => {
   // //validation response
@@ -35,7 +38,7 @@ router.post("/sign-in", async (req, res, next) => {
       return res.status(404).send({ message: "User not found" });
     }
     const payload = { email: user.email, id: user._id };
-    const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+    const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
     }
