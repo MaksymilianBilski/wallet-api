@@ -54,11 +54,11 @@ router.post("/sign-in", async (req, res, next) => {
 
 router.delete("/sign-out", auth, async (req, res, next) => {
   if (req.session) {
-    req.session.destroy((err) => {
+    return req.session.destroy((err) => {
       if (err) {
-        return res.status(400).send({ message: "Unable to logout!" });
+        res.status(400).send({ message: "Unable to logout!" });
       } else {
-        return res.send({ message: "Logout succesfull!" });
+        res.send({ message: "Logout succesfull!" });
       }
     });
   }
