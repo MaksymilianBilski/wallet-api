@@ -1,1 +1,1 @@
-web: web: cd bin && npm start
+web: cd bin && npm start
