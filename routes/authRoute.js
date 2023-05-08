@@ -54,7 +54,7 @@ router.post("/sign-in", async (req, res, next) => {
 
 router.delete("/sign-out", auth, async (req, res, next) => {
   try {
-    const user = findUser("token", req.headers.authorization);
+    const user = await findUser("token", req.headers.authorization);
     user.token = null;
     user.save();
     return res.status(204).send({ message: "Logout succesfully??" });
