@@ -39,12 +39,12 @@ router.post("/sign-in", async (req, res, next) => {
     }
     const payload = { email: user.email, id: user._id };
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
-    user.token = token;
-    user.save();
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
     }
-    return res.status(201).send({ message: "Successfully logged in!", user, token });
+    return res
+      .status(201)
+      .send({ message: "Successfully logged in!", user, token });
   } catch {
     return res.status(404).send({
       message: "Something went wrong with log in action! ",
@@ -53,16 +53,25 @@ router.post("/sign-in", async (req, res, next) => {
 });
 
 router.delete("/sign-out", auth, async (req, res, next) => {
-  try {
-    const user = await findUser("token", req.headers.authorization);
-    user.token = null;
-    user.save();
-    return res.status(204).send({ message: "Logout succesfully??" });
-  } catch {
-    return res.status(404).send({
-      message: "Something went wrong with log out action!",
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(400).send({ message: "Unable to logout!" });
+      } else {
+        return res.send({ message: "Logout succesfull!" });
+      }
     });
   }
+  // try {
+  //   const user = await findUser("token", req.headers.authorization);
+  //   user.token = null;
+  //   user.save();
+  //   return res.status(203).send({ message: "Logout succesfully??" });
+  // } catch {
+  //   return res.status(404).send({
+  //     message: "Something went wrong with log out action!",
+  //   });
+  // }
 });
 
 module.exports = router;
