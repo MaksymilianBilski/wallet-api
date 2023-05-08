@@ -42,6 +42,7 @@ router.post("/sign-in", async (req, res, next) => {
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
     }
+
     return res
       .status(201)
       .send({ message: "Successfully logged in!", user, token });
@@ -53,15 +54,12 @@ router.post("/sign-in", async (req, res, next) => {
 });
 
 router.delete("/sign-out", auth, async (req, res, next) => {
-  if (req.session) {
-    return req.session.destroy((err) => {
-      if (err) {
-        res.status(400).send({ message: "Unable to logout!" });
-      } else {
-        res.send({ message: "Logout succesfull!" });
-      }
-    });
+  try {
+    return res.status(201).send({ message: "Logged out!" });
+  } catch {
+    return res.status(201).send({ message: "Something went wrong!" });
   }
+
   // try {
   //   const user = await findUser("token", req.headers.authorization);
   //   user.token = null;
