@@ -3,7 +3,6 @@ const router = express.Router();
 const { createUser, findUser } = require("../controllers/userControllers");
 const auth = require("../auth/auth");
 const jwt = require("jsonwebtoken");
-const auth = require("../auth/auth");
 require("dotenv").config();
 const secret = process.env.SECRET;
 
