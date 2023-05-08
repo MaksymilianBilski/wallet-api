@@ -53,11 +53,9 @@ router.post("/sign-in", async (req, res, next) => {
 });
 
 router.delete("/sign-out", auth, async (req, res, next) => {
+  
   try {
-    const user = await findUser("token", req.headers.authorization);
-    user.token = null;
-    user.save();
-    return res.status(204).send({ message: "Logout succesfully!" });
+    return res.status(204).send({ message: "Logout succesfully??" });
   } catch {
     return res.status(404).send({
       message: "Something went wrong with log out action!",
