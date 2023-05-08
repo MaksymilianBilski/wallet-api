@@ -59,17 +59,6 @@ router.delete("/sign-out", auth, async (req, res, next) => {
   } catch {
     return res.status(201).send({ message: "Something went wrong!" });
   }
-
-  // try {
-  //   const user = await findUser("token", req.headers.authorization);
-  //   user.token = null;
-  //   user.save();
-  //   return res.status(203).send({ message: "Logout succesfully??" });
-  // } catch {
-  //   return res.status(404).send({
-  //     message: "Something went wrong with log out action!",
-  //   });
-  // }
 });
 
 module.exports = router;
