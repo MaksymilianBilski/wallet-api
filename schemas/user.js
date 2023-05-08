@@ -12,6 +12,7 @@ const userSchema = new Schema({
     required: [true, "Password is required!"],
   },
   balance: { type: Number },
+  token: { type: String },
 });
 
 const Users = mongoose.model("users", userSchema);

@@ -8,5 +8,8 @@ const findUser = async (value, credentials) => {
   return await Users.findOne({ [value]: credentials });
 };
 
+const updateUser = async (id, updateinfo) => {
+  return await Users.findByIdAndUpdate(id, updateinfo);
+};
 
-module.exports = { createUser, findUser };
+module.exports = { createUser, findUser, updateUser };
