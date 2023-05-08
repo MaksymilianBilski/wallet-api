@@ -39,11 +39,12 @@ router.post("/sign-in", async (req, res, next) => {
     }
     const payload = { email: user.email, id: user._id };
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
-    user.token = token;
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
     }
-    return res.status(201).send({ message: "Successfully logged in!", user });
+    return res
+      .status(201)
+      .send({ message: "Successfully logged in!", user, token });
   } catch {
     return res.status(404).send({
       message: "Something went wrong with log in action! ",
