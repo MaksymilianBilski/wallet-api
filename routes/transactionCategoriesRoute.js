@@ -7,15 +7,14 @@ const {
 } = require("../controllers/transactionController");
 
 router.get("/", auth, async (req, res, next) => {
-  //TODO!!!! res status codes
   const { id } = jwt.decode(req.headers.authorization);
   try {
     const categories = await getTransactionCategories("userId", id);
     return res
-      .status(201)
+      .status(200)
       .send({ message: "Succesfully send categories!", categories });
   } catch {
-    return res.status(404).send({ message: "Succesfully send categories!" });
+    return res.status(404).send({ message: "Something went wrong!" });
   }
 });
 

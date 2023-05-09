@@ -1,18 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { findUser } = require("../controllers/userControllers");
-const auth = require("../auth/auth");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secret = process.env.SECRET;
+const { findUser } = require("../controllers/userControllers");
+const auth = require("../auth/auth");
 
 router.get("/", (req, res, next) => {
   res.send("respond with a resource");
 });
 
 router.get("/current", auth, async (req, res, next) => {
-  //TODO !!!!!!!!!!!!!!!//
-  // res.status(401).send({message: "Bearer authorization failed!"})
   const token = req.headers.authorization;
   const { id } = jwt.verify(token, secret);
   try {
