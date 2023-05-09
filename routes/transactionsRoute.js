@@ -87,12 +87,11 @@ router.delete("/:id", auth, async (req, res, next) => {
   const { id } = jwt.decode(req.headers.authorization);
   const user = await findUser("_id", id);
   try {
-    const transaction = await deleteTransaction(req.params.id);
-    if (transaction) {
-      return res.status(404).send({ messaage: "Transaction not found!" });
-    }
+    await deleteTransaction(req.params.id);
     const userBalance = await getTransactionSummary(id, 0, 0);
+    console.log(userBalance.summary.balance);
     user.balance = userBalance.summary.balance.balance;
+    console.log(id);
     user.save();
     return res
       .status(204)

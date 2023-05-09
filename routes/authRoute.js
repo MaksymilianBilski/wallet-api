@@ -21,7 +21,6 @@ router.post("/sign-up", async (req, res, next) => {
     user.save();
     return res.status(201).send({ message: "Registered successfully!" });
   } catch {
-    console.log("error", e);
     return res.send({
       message: "Something went wrong with your registration!",
     });

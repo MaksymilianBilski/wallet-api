@@ -1,3 +1,4 @@
+const fs = require("fs/promises");
 const Transactions = require("../schemas/transaction");
 const balance = require("./balance");
 
@@ -17,10 +18,10 @@ const getAllTransactions = async (property, value) => {
   return await Transactions.find({ [property]: value });
 };
 
-const getTransactionCategories = async (property, value) => {
-  const allTransactions = await Transactions.find({ [property]: value });
-  const categories = allTransactions.map((el) => {
-    return { id: el.categoryId, name: el.comment, type: el.type };
+const getTransactionCategories = async () => {
+  const categoriesFile = await fs.readFile("./data/categories.json");
+  const categories = JSON.parse(categoriesFile.toString()).map((el) => {
+    return { id: el.id, name: el.name, type: el.type };
   });
   return categories;
 };

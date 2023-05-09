@@ -1,7 +1,5 @@
 const balance = (allTransactions, year, month) => {
-  console.log("teseststest");
-  console.log(allTransactions[1].transactionDate.slice(5, 7), "to tez");
-  console.log(allTransactions[1].transactionDate.slice(0, 4), "to tez");
+
   const expenseMonth = allTransactions
     .filter((el) => el.type.toUpperCase() === "EXPENSE")
     .filter((el) => Number(el.transactionDate.slice(0, 4)) === year)
