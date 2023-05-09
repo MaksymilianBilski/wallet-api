@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 const transactionSchema = new schema({
   transactionDate: { type: String },
   type: { type: String },
-  Enum: { type: Array, validate: (v) => Array.isArray(v) && v.length === 2 },
+  Enum: ["INCOME", "EXPENSE"],
   categoryId: { type: String },
   comment: { type: String },
   amount: { type: Number },
