@@ -3,12 +3,12 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const secret = process.env.SECRET;
-
 const {
   createTransaction,
   updateTransaction,
   getAllTransactions,
   deleteTransaction,
+  getTransactionSummary,
 } = require("../controllers/transactionController");
 const { findUser } = require("../controllers/userControllers");
 
@@ -45,7 +45,8 @@ router.post("/", auth, async (req, res, next) => {
     transaction.userId = id;
     transaction.balanceAfter = balance;
     transaction.save();
-    user.balance = balance;
+    const userBalance = await getTransactionSummary(id, 0, 0);
+    user.balance = userBalance.summary.balance.balance;
     user.save();
     return res
       .status(201)
