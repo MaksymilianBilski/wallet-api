@@ -21,7 +21,7 @@ const getTransactionSummary = async () => {};
 const getTransactionCategories = async (value, value2) => {
   const allTransactions = await Transactions.find({ [value]: value2 });
   const categories = allTransactions.map((el) => {
-    return { category: el.categoryId, name: el.comment, type: el.type };
+    return { id: el.categoryId, name: el.comment, type: el.type };
   });
   return categories;
 };
