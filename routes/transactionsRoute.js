@@ -61,8 +61,13 @@ router.patch("/:id", auth, async (req, res, next) => {
   // //validation response
   // res.status(400).send({message: "Validation error!"})
   // res.status(403).send({message: "User does not owns transaction!"})
+  const { id } = jwt.decode(req.headers.authorization);
+  const user = await findUser("_id", id);
   try {
     const transaction = await updateTransaction(req.params.id, req.body);
+    const userBalance = await getTransactionSummary(id, 0, 0);
+    user.balance = userBalance.summary.balance.balance;
+    user.save();
     return res
       .status(200)
       .send({ message: "Succesfully updated transaction!", transaction });
@@ -79,11 +84,16 @@ router.delete("/:id", auth, async (req, res, next) => {
   // res.status(400).send({message: "Validation error!"})
   // res.status(401).send({message: "Bearer authorization failed!"})
   // res.status(403).send({message: "User does not owns transaction!"})
+  const { id } = jwt.decode(req.headers.authorization);
+  const user = await findUser("_id", id);
   try {
     const transaction = await deleteTransaction(req.params.id);
     if (transaction) {
       return res.status(404).send({ messaage: "Transaction not found!" });
     }
+    const userBalance = await getTransactionSummary(id, 0, 0);
+    user.balance = userBalance.summary.balance.balance;
+    user.save();
     return res
       .status(204)
       .send({ messaage: "Succesfully deleted transaction!" });
