@@ -1,5 +1,6 @@
-const balance = (allTransactions, year, month) => {
+const Transactions = require("../schemas/transaction");
 
+const balance = (allTransactions, year, month) => {
   const expenseMonth = allTransactions
     .filter((el) => el.type.toUpperCase() === "EXPENSE")
     .filter((el) => Number(el.transactionDate.slice(0, 4)) === year)
@@ -64,4 +65,10 @@ const balance = (allTransactions, year, month) => {
   };
 };
 
-module.exports = balance;
+const balanceCategories = async (property, value) => {
+  const trans =  await Transactions.find({ [property]: value });;
+  console.log(trans);
+  return trans;
+};
+
+module.exports = { balance, balanceCategories };

@@ -1,6 +1,6 @@
 const fs = require("fs/promises");
 const Transactions = require("../schemas/transaction");
-const balance = require("./balance");
+const { balance, balanceCategories } = require("./balance");
 
 const createTransaction = async (data) => {
   return await Transactions.create(data);
@@ -26,6 +26,15 @@ const getTransactionCategories = async () => {
   return categories;
 };
 
+const getStatistics = async (property, value) => {
+  const transactions = await balanceCategories(property, value);
+  const arr = transactions.map((el) => {
+    return { category: el.categoryId, amount: el.amount };
+  });
+  console.log(arr);
+  return arr;
+};
+
 const getTransactionSummary = async (id, year, month) => {
   const allTransactions = await getAllTransactions("userId", id);
   const allTransactionsCategories = await getTransactionCategories(
@@ -48,4 +57,5 @@ module.exports = {
   getTransactionSummary,
   deleteTransaction,
   getTransactionCategories,
+  getStatistics,
 };
