@@ -8,23 +8,17 @@ const {
   createTransaction,
   updateTransaction,
   getAllTransactions,
-  findTransaction,
   deleteTransaction,
 } = require("../controllers/transactionController");
 const { findUser } = require("../controllers/userControllers");
 
 const auth = require("../auth/auth");
 
-// router.get("/", function (req, res, next) {
-//   res.render("index", { title: "Wallet app" });
-// });
-
 router.get("/", auth, async (req, res, next) => {
   const { id } = jwt.decode(req.headers.authorization);
   //TODO !!!!!!!!!!!!!!!//
   // //validation response
   // res.status(400).send({message: "Validation error!"})
-  // res.status(401).send({message: "Bearer authorization failed!"})
   try {
     const allTransactions = await getAllTransactions("userId", id);
     return res
@@ -39,7 +33,6 @@ router.post("/", auth, async (req, res, next) => {
   //TODO !!!!!!!!!!!!!!!//
   // //validation response
   // res.status(400).send({message: "Validation error!"})
-  // res.status(401).send({message: "Bearer authorization failed!"})
   // res.status(403).send({message: "User does not owns transaction!"})
   // res.status(404).send({message: "Transaction category not found!!"})
   // res.status(409).send({message: "Transaction category type does not match transaction type!"})
@@ -66,7 +59,6 @@ router.patch("/:id", auth, async (req, res, next) => {
   //TODO !!!!!!!!!!!!!!!//
   // //validation response
   // res.status(400).send({message: "Validation error!"})
-  // res.status(401).send({message: "Bearer authorization failed!"})
   // res.status(403).send({message: "User does not owns transaction!"})
   try {
     const transaction = await updateTransaction(req.params.id, req.body);
