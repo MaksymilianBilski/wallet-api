@@ -18,6 +18,14 @@ const getAllTransactions = async (value, value2) => {
 
 const getTransactionSummary = async () => {};
 
+const getTransactionCategories = async (value, value2) => {
+  const allTransactions = await Transactions.find({ [value]: value2 });
+  const categories = allTransactions.map((el) => {
+    return [el.categoryId, el.comment, el.type];
+  });
+  return categories;
+};
+
 const deleteTransaction = async (id) => {
   return await Transactions.findByIdAndDelete(id);
 };
@@ -29,4 +37,5 @@ module.exports = {
   getAllTransactions,
   getTransactionSummary,
   deleteTransaction,
+  getTransactionCategories,
 };

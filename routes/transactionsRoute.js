@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const secret = process.env.SECRET;
 
 const {
   createTransaction,
@@ -11,21 +14,19 @@ const {
 const { findUser } = require("../controllers/userControllers");
 
 const auth = require("../auth/auth");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-const secret = process.env.SECRET;
 
 // router.get("/", function (req, res, next) {
 //   res.render("index", { title: "Wallet app" });
 // });
 
 router.get("/", auth, async (req, res, next) => {
+  const { id } = jwt.decode(req.headers.authorization);
   //TODO !!!!!!!!!!!!!!!//
   // //validation response
   // res.status(400).send({message: "Validation error!"})
   // res.status(401).send({message: "Bearer authorization failed!"})
   try {
-    const allTransactions = await getAllTransactions("userId", req.body.id);
+    const allTransactions = await getAllTransactions("userId", id);
     return res
       .status(200)
       .send({ message: "All of user transactions: ", allTransactions });

@@ -4,9 +4,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
-const transactionsRouter = require("./routes/transactionsRoute");
-const usersRouter = require("./routes/userRoute");
 const authRouter = require("./routes/authRoute");
+const usersRouter = require("./routes/userRoute");
+const transactionsRouter = require("./routes/transactionsRoute");
+const transactionsSummaryRouter = require("./routes/transactionSummaryRoute");
+const transactionsCategoriesRouter = require("./routes/transactionCategoriesRoute");
 
 const app = express();
 
@@ -30,8 +32,8 @@ app.use(function (req, res, next) {
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/transactions", transactionsRouter);
-app.use("/api/transactions-categories", transactionsRouter);
-app.use("/api/transaction-summary", transactionsRouter);
+app.use("/api/transaction-categories", transactionsCategoriesRouter);
+app.use("/api/transactions-summary", transactionsSummaryRouter);
 
 app.use(function (req, res, next) {
   next(createError(404));
