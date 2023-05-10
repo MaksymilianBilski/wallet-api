@@ -1,5 +1,15 @@
 [
     {
+        "id": "d9d9e447-1b83-4238-8712-edc77b18b729",
+        "name": "Hide me",
+        "type": "EXPENSE"
+    },
+    {
+        "id": "c9d9e447-1b83-4238-8712-edc77b18b739",
+        "name": "Main expenses",
+        "type": "EXPENSE"
+    },
+    {
         "id": "27eb4b75-9a42-4991-a802-4aefe21ac3ce",
         "name": "Products",
         "type": "EXPENSE"
