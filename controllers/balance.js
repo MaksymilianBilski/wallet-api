@@ -55,10 +55,15 @@ const balance = (allTransactions, year, month) => {
       return value;
     }, 0);
 
+  const all = allTransactions
+    .filter((el) => Number(el.transactionDate.slice(0, 4)) === year)
+    .filter((el) => Number(el.transactionDate.slice(5, 7)) === month);
+
   const balanceYear = incomeYear - expenseYear;
   const balanceMonth = incomeMonth - expenseMonth;
   const balance = incomeAll - expenseAll;
   return {
+    all,
     balance: { balance, balanceYear, balanceMonth },
     income: { incomeAll, incomeYear, incomeMonth },
     expense: { expenseAll, expenseYear, expenseMonth },
@@ -66,7 +71,7 @@ const balance = (allTransactions, year, month) => {
 };
 
 const balanceCategories = async (property, value) => {
-  const trans =  await Transactions.find({ [property]: value });;
+  const trans = await Transactions.find({ [property]: value });
   console.log(trans);
   return trans;
 };
