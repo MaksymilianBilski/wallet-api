@@ -42,18 +42,16 @@ router.post("/", auth, async (req, res, next) => {
   try {
     let balance = 0;
     const transaction = await createTransaction(req.body);
-    console.log(transaction.type.toLowerCase());
     if (transaction.type.toLowerCase() === "expense") {
       balance = user.balance - transaction.amount;
     } else if (transaction.type.toLowerCase() === "income") {
       balance = user.balance + transaction.amount;
-      console.log(balance, "test");
     }
     transaction.userId = id;
     transaction.balanceAfter = balance;
     transaction.save();
-    const userBalance = await getTransactionSummary(id, 0, 0);
-    user.balance = userBalance.summary.balance.balance;
+    // const userBalance = await getTransactionSummary(id, 0, 0);
+    user.balance = balance;
     user.save();
     return res
       .status(201)
@@ -96,9 +94,7 @@ router.delete("/:id", auth, async (req, res, next) => {
   try {
     await deleteTransaction(req.params.id);
     const userBalance = await getTransactionSummary(id, 0, 0);
-    console.log(userBalance.summary.balance);
     user.balance = userBalance.summary.balance.balance;
-    console.log(id);
     user.save();
     return res
       .status(204)
