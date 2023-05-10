@@ -29,7 +29,11 @@ const getTransactionCategories = async () => {
 const getStatistics = async (property, value) => {
   const transactions = await balanceCategories(property, value);
   const arr = transactions.map((el) => {
-    return { category: el.categoryId, amount: el.amount };
+    return {
+      category: el.categoryId,
+      amount: el.amount,
+      date: el.transactionDate,
+    };
   });
   console.log(arr);
   return arr;
