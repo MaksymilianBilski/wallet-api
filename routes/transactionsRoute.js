@@ -40,8 +40,15 @@ router.post("/", auth, async (req, res, next) => {
   const { id } = jwt.verify(token, secret);
   const user = await findUser("_id", id);
   try {
+    let balance = 0;
     const transaction = await createTransaction(req.body);
-    const balance = user.balance - transaction.amount;
+    console.log(transaction.type.toLowerCase());
+    if (transaction.type.toLowerCase() === "expense") {
+      balance = user.balance - transaction.amount;
+    } else if (transaction.type.toLowerCase() === "income") {
+      balance = user.balance + transaction.amount;
+      console.log(balance, "test");
+    }
     transaction.userId = id;
     transaction.balanceAfter = balance;
     transaction.save();
