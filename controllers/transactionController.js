@@ -35,7 +35,6 @@ const getStatistics = async (property, value) => {
       date: el.transactionDate,
     };
   });
-  console.log(arr);
   return arr;
 };
 
