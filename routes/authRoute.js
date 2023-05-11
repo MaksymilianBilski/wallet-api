@@ -39,6 +39,7 @@ router.post("/sign-in", async (req, res, next) => {
     }
     const payload = { email: user.email, id: user._id };
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
+    console.log(token);
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
     }
