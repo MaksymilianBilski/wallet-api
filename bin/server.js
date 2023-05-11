@@ -28,12 +28,14 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
-
-try {
-  await mongoose.connect(process.env.DB_URI);
-} catch (error) {
-  handleError(error);
-}
+const connectDb = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URI);
+  } catch (error) {
+    handleError(error);
+  }
+};
+connectDb();
 // client.connect((err) => {
 //   if (err) {
 //     console.error(err);
