@@ -33,6 +33,7 @@ router.post("/sign-in", async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await findUser("email", email);
+    console.log(user);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
