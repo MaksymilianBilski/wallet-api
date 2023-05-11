@@ -10,6 +10,10 @@ const transactionsRouter = require("./routes/transactionsRoute");
 const transactionsSummaryRouter = require("./routes/transactionSummaryRoute");
 const transactionsCategoriesRouter = require("./routes/transactionCategoriesRoute");
 
+const functions = require("firebase-functions");
+const myVariable = functions.config();
+console.log(myVariable);
+
 const app = express();
 
 app.set("view engine", "jade");
