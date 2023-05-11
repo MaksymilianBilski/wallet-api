@@ -10,7 +10,6 @@ const transactionsRouter = require("./routes/transactionsRoute");
 const transactionsSummaryRouter = require("./routes/transactionSummaryRoute");
 const transactionsCategoriesRouter = require("./routes/transactionCategoriesRoute");
 
-
 const app = express();
 
 app.set("view engine", "jade");

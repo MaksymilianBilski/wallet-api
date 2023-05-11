@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 const { MongoClient } = require("mongodb");
-const app = require("../app");
+const app = require("..");
 const debug = require("debug")("wallet-api:server");
 const http = require("http");
 const mongoose = require("mongoose");
