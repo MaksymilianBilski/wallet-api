@@ -65,7 +65,7 @@
     "vary": "^1.1.2"
   },
   "scripts": {
-    "start": "nodemon bin/www",
+    "start": "npm run bin/www",
     "startdev": "nodemon bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
