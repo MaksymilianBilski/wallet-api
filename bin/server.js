@@ -11,13 +11,12 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const uri = process.env.DB_URI;
-const client = new MongoClient(uri);
+// const client = new MongoClient(uri);
 
-app.get("/items/:my_item", async (req, res) => {
-  let item = await client.collection("users").findOne({ email: "malpa@o2.pl" });
-
-  return res.json(item);
-});
+// app.get("/items/:my_item", async (req, res) => {
+//   let item = await client.collection("users").findOne({ email: "malpa@o2.pl" });
+//   return res.json(item);
+// });
 
 /**
  * Get port from environment and store in Express.
@@ -29,16 +28,22 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
-client.connect((err) => {
-  if (err) {
-    console.error(err);
-    return false;
-  }
-  // connection to mongo is successful, listen for requests
-  app.listen(port, () => {
-    console.log("listening for requests");
-  });
-});
+
+try {
+  await mongoose.connect(process.env.DB_URI);
+} catch (error) {
+  handleError(error);
+}
+// client.connect((err) => {
+//   if (err) {
+//     console.error(err);
+//     return false;
+//   }
+//   // connection to mongo is successful, listen for requests
+//   app.listen(port, () => {
+//     console.log("listening for requests");
+//   });
+// });
 
 const server = http.createServer(app);
 
