@@ -33,13 +33,11 @@ router.post("/sign-in", async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await findUser("email", email);
-    console.log(user);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
     const payload = { email: user.email, id: user._id };
-    console.log(secret);
-    const token = jwt.sign(payload, "secret", { expiresIn: "1h" });
+    const token = jwt.sign(payload, secret, { expiresIn: "1h" });
     console.log(token);
     if (user.password !== password) {
       return res.status(403).send({ message: "Wrong email or password" });
